@@ -1,24 +1,17 @@
 # Path → label rules for actions/labeler@v6 (PR file paths).
 
-"area/seal":
+"area/shortcodes":
   - changed-files:
       - any-glob-to-any-file:
-          - secretbox.go
+          - emojis.go
+          - emojis_raw.json
+          - gen_emojis.py
 
-"area/vault":
+"area/lookup":
   - changed-files:
       - any-glob-to-any-file:
-          - vault.go
-
-"area/kdf":
-  - changed-files:
-      - any-glob-to-any-file:
-          - kdf.go
-
-"area/cipher":
-  - changed-files:
-      - any-glob-to-any-file:
-          - cipher.go
+          - shortcode.go
+          - shortcode_test.go
 
 "area/docs":
   - changed-files:

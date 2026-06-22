@@ -17,7 +17,7 @@ body:
       label: To reproduce
       description: Steps to reproduce the behavior. Include a minimal Go snippet if possible.
       placeholder: |
-        1. Call `secretbox.Seal(...)` / `Vault.Unlock(...)` with '...'
+        1. Call `shortcode.Lookup(...)` / `shortcode.Suggest(...)` with '...'
         2. See output / error
     validations:
       required: true
@@ -35,19 +35,17 @@ body:
     attributes:
       label: Area
       options:
-        - Seal/Unseal (one-shot)
-        - Vault (secure mode / session key)
-        - Rekey / ChangePassword (rotation)
-        - KDF (Argon2id)
-        - Cipher (AES-GCM / ChaCha20)
+        - Shortcode data
+        - Lookup / Suggest APIs
+        - Documentation
         - Other / unsure
     validations:
       required: true
 
   - type: input
-    id: secretbox-version
+    id: version
     attributes:
-      label: go-secretbox version
+      label: go-emoji-shortcode version
       placeholder: "e.g. v0.1.0 or commit SHA"
 
   - type: input

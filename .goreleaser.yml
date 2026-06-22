@@ -1,4 +1,4 @@
-# GoReleaser configuration for go-secretbox.
+# GoReleaser configuration for go-emoji-shortcode.
 # Library only — no binaries. Produces a source archive + GitHub-native
 # release notes on tag push.
 # See: https://goreleaser.com/customization/
@@ -42,7 +42,7 @@ release:
     **Install:**
 
     ```bash
-    go get github.com/floatpane/go-secretbox@{{ .Tag }}
+    go get github.com/floatpane/go-emoji-shortcode@{{ .Tag }}
     ```
 
-    See the [Go reference](https://pkg.go.dev/github.com/floatpane/go-secretbox) for full API documentation.
+    See the [Go reference](https://pkg.go.dev/github.com/floatpane/go-emoji-shortcode) for full API documentation.

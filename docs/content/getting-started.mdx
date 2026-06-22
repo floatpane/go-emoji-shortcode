@@ -7,15 +7,12 @@ title: Getting Started
 ## Install
 
 ```bash
-go get github.com/floatpane/go-secretbox
+go get github.com/floatpane/go-emoji-shortcode
 ```
 
 Requires Go 1.26+.
 
-## Encrypt one blob
-
-The fastest way in. `Seal` returns bytes you can write anywhere; `Unseal`
-needs only the password.
+## Look up an emoji
 
 ```go
 package main
@@ -24,56 +21,32 @@ import (
     "fmt"
     "log"
 
-    "github.com/floatpane/go-secretbox"
+    "github.com/floatpane/go-emoji-shortcode"
 )
 
 func main() {
-    blob, err := secretbox.Seal([]byte("attack at dawn"), "correct horse battery staple")
-    if err != nil {
-        log.Fatal(err)
+    em, ok := shortcode.Lookup("smile")
+    if !ok {
+        log.Fatal("unknown shortcode")
     }
-
-    plain, err := secretbox.Unseal(blob, "correct horse battery staple")
-    if err != nil {
-        log.Fatal(err) // secretbox.ErrDecrypt on wrong password or tampering
-    }
-    fmt.Println(string(plain)) // attack at dawn
+    fmt.Println(em) // 😄
 }
 ```
 
-## Or run a password-protected vault
+## Suggest matching shortcodes
 
 ```go
-v := secretbox.NewVault("/home/me/.config/app/secure.meta")
-
-if !v.Initialized() {
-    if err := v.Init(masterPassword); err != nil { // first run
-        log.Fatal(err)
-    }
-} else if err := v.Unlock(masterPassword); err != nil { // later runs
-    log.Fatal(err) // secretbox.ErrWrongPassword
+matches := shortcode.Suggest("sm")
+for _, m := range matches {
+    fmt.Printf(":%s: -> %s\n", m.Code, m.Emoji)
 }
-defer v.Lock()
-
-v.WriteFile("/home/me/.config/app/config.json", cfg, 0o600)
-data, _ := v.ReadFile("/home/me/.config/app/config.json")
+// :smile: -> 😄
+// :smirk: -> 😏
+// ...
 ```
-
-## Errors
-
-All errors are sentinels — compare with `errors.Is`:
-
-| Error | Meaning |
-|-------|---------|
-| `ErrDecrypt` | Wrong key, truncated input, or tampering. Deliberately indistinct. |
-| `ErrWrongPassword` | `Unlock` failed the sentinel check. |
-| `ErrLocked` | A `Vault` operation needs the session key but the vault is locked. |
-| `ErrNotInitialized` | `Unlock` found no metadata file. |
-| `ErrUnsupported` | Metadata names a KDF/cipher this build can't construct. |
 
 ## Next steps
 
-- [One-Shot: Seal & Unseal](/seal) — the self-describing blob format.
-- [The Vault](/vault) — secure mode, the session key, transparent file I/O.
-- [Key Rotation](/rotation) — changing the password and migrating files safely.
-- [Threat Model](/security) — what this protects, and what it does not.
+- [Lookup](/lookup) — exact shortcode to emoji conversion.
+- [Suggest](/suggest) — fuzzy prefix matching with preview.
+- [Render shortcodes](/render) — replacing `:shortcode:` in text bodies.

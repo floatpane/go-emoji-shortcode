@@ -70,33 +70,13 @@
   color: b60205
   description: Tracked CI failure on master
 
-# --- OS ---
-- name: os/windows
-  color: 0078d4
-  description: Windows-specific
-- name: os/linux
-  color: fcc624
-  description: Linux-specific
-- name: os/macos
-  color: "333333"
-  description: macOS-specific
-
 # --- Area ---
-- name: area/seal
+- name: area/shortcodes
   color: c2e0c6
-  description: One-shot Seal/Unseal blob format
-- name: area/vault
+  description: Emoji shortcode data or generation
+- name: area/lookup
   color: c2e0c6
-  description: Vault, secure mode, session key, sentinel
-- name: area/rotation
-  color: c2e0c6
-  description: Rekey / ChangePassword / key rotation
-- name: area/kdf
-  color: c2e0c6
-  description: Key derivation (Argon2id, salts)
-- name: area/cipher
-  color: c2e0c6
-  description: Ciphers (AES-GCM, ChaCha20-Poly1305, AEAD framing)
+  description: Lookup and Suggest APIs
 - name: area/docs
   color: c2e0c6
   description: Docs site / README
