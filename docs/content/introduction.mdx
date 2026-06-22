@@ -1,0 +1,32 @@
+---
+title: Introduction
+---
+
+# go-emoji-shortcode
+
+`go-emoji-shortcode` is a small, dependency-free Go library for mapping emoji
+shortcodes like `:smile:` and `:wave:` to Unicode emoji characters. It was
+extracted from [matcha](https://github.com/floatpane/matcha) so that other Go
+projects can add emoji preview and suggestion support without dragging in a heavy
+emoji database or external dependencies.
+
+## What it does
+
+- **Lookup** — convert a shortcode to an exact emoji character.
+- **Suggest** — fuzzy-match shortcodes for a prefix, e.g. `sm` returns `smile`,
+  `smirk`, etc.
+- **All** — enumerate every known shortcode/emoji pair.
+
+The library ships with ~1900 shortcodes generated from GitHub's `gemoji`
+database, so the names are the ones users already know from GitHub, Slack,
+Discord and many other apps.
+
+## Use cases
+
+- Live emoji picker in a text editor or TUI composer.
+- Autocomplete in chat apps, comment boxes, or wiki inputs.
+- Rendering `:shortcode:` text into actual emoji in Markdown or email bodies.
+
+> [!NOTE]
+> The import path is `github.com/floatpane/go-emoji-shortcode` and the package
+> name is `shortcode`.

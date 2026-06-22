@@ -1,0 +1,26 @@
+---
+title: Suggest
+---
+
+# Suggest
+
+`Suggest` returns shortcodes that start with a given prefix. The result is sorted
+by length and then alphabetically, so the most likely match appears first.
+
+```go
+matches := shortcode.Suggest("sm")
+for _, m := range matches {
+    fmt.Printf(":%s: -> %s\n", m.Code, m.Emoji)
+}
+// :smile: -> 😄
+// :smirk: -> 😏
+// ...
+```
+
+Each `Match` contains the shortcode (without colons) and the corresponding emoji
+character, making it easy to render a live picker with both the code and a
+preview.
+
+> [!TIP]
+> Empty or whitespace-only prefixes return `nil`. Keep the picker hidden until the
+> user has typed at least one meaningful character after the colon.

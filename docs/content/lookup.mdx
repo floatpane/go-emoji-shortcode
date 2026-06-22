@@ -1,0 +1,35 @@
+---
+title: Lookup
+---
+
+# Lookup
+
+Convert a shortcode to a single emoji character. The lookup is case-insensitive
+and ignores surrounding colons.
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+
+    "github.com/floatpane/go-emoji-shortcode"
+)
+
+func main() {
+    em, ok := shortcode.Lookup("smile")
+    if !ok {
+        log.Fatal("unknown shortcode")
+    }
+    fmt.Println(em) // 😄
+
+    // colons and mixed case are fine
+    em, ok = shortcode.Lookup(":Wave:")
+    if ok {
+        fmt.Println(em) // 👋
+    }
+}
+```
+
+If the shortcode is unknown, `Lookup` returns `("", false)`.

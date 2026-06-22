@@ -1,0 +1,39 @@
+---
+title: Rendering shortcodes
+---
+
+# Rendering shortcodes
+
+If you want to replace `:shortcode:` in a body of text, combine `Lookup` with a
+simple regular expression.
+
+```go
+package main
+
+import (
+    "fmt"
+    "regexp"
+
+    "github.com/floatpane/go-emoji-shortcode"
+)
+
+var shortcodeRE = regexp.MustCompile(`:([a-zA-Z0-9_+-]+):`)
+
+func renderEmojiShortcodes(input string) string {
+    return shortcodeRE.ReplaceAllStringFunc(input, func(s string) string {
+        code := s[1 : len(s)-1]
+        if em, ok := shortcode.Lookup(code); ok {
+            return em
+        }
+        return s
+    })
+}
+
+func main() {
+    text := "Hello :wave: :unknown:"
+    fmt.Println(renderEmojiShortcodes(text))
+    // Hello 👋 :unknown:
+}
+```
+
+Unknown shortcodes are left untouched so the user can still see what they typed.
